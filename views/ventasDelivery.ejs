@@ -1,0 +1,524 @@
+<%- include('./includes/head.ejs')%>
+<%- include('./includes/menus.ejs')%>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 box-margin">
+      <div class="card">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center mb-50">
+            <h4 class="card-title mb-2 text-uppercase">Ventas de la Sucursal: <%= sucursalUser %></h4>
+          </div>
+          <% let currentCodVenta = null; let total=null; %>
+          <% for (let i = 0; i < detalle_venta.length; i++) { %>
+            <% if(detalle_venta[i].codventa.estado==="1"){ %>
+            <% let codventa = detalle_venta[i].codventa.codventa %>
+            <% const detalleVenta = detalle_venta[i]; %>
+            <% if (currentCodVenta !== detalleVenta.codventa.codventa) { %>
+              <% currentCodVenta = detalleVenta.codventa.codventa; %>
+              <% total=detalleVenta.codventa.total %>
+              
+              <table id="basic-datatable" class="table dt-responsive nowrap w-100">
+                <hr>
+                <h5>Venta Número: <%= currentCodVenta %>, TOTAL: <%= total %> Nuevos Soles <i class="bi bi-cash"></i></h5>
+                <div class="d-flex justify-content-between align-items-center mb-50">
+                  <a href="#" class="btn btn-primary btn-sm" onclick="Agregar('<%= currentCodVenta %>')">Agregar</a>
+                  <div class="d-flex">
+                    <a  href="#" class="btn btn-success" onclick="vender('<%= currentCodVenta %>','<%= detalleVenta.codventa.codusuario.codusuario %>','<%= detalle_venta %>','<%= codusuario %>')">Vender</a>
+                  </div>
+                </div>
+                <thead>
+                  <tr>
+                    <!-- <th class="text-center">Código de venta</th> -->
+                    <th >Nombre Platillo</th>
+                    <th class="text-center">Cantidad</th>
+                    <th class="text-center">Tipo venta</th>
+                    <th class="text-center">Precio</th>
+                    <th class="text-center">Acciones</th>
+                  </tr>
+                </thead>
+            <% } %>
+                <tbody>
+                  <tr <% if (detalleVenta.pedidonuevo === '1') { %>class="fila-verde"<% } %>>
+                    <!-- <td class="text-center"><%= detalleVenta.codventa.codventa %></td> -->
+                    <td ><%= detalleVenta.codplatillo.nombres %></td>
+                    <td class="text-center"><%= detalleVenta.cantidad %></td>
+                    <td class="text-center"><%= detalleVenta.codventa.tipoVenta %></td>
+                    <td class="text-center"><%= detalleVenta.codplatillo.precio %> S/</td>
+                    <td class="text-center">
+                      <button class="btn action-icon delete"  onclick="Quitar('<%= currentCodVenta %>','<%= detalleVenta.iddetalleventas %>')"> <i class="mdi mdi-delete"></i>Quitar</button>
+                    </td>
+                  </tr>
+                <% } %>          
+                <% } %>
+              </tbody>
+            </table>
+        </div> <!-- end card body-->
+      </div> <!-- end card -->
+    </div><!-- end col-->
+  </div>                      
+</div>
+
+<%- include('./includes/foot.ejs')%>
+
+<script>
+  async function vender(codventa1,id,detalle_venta,codadmin1) {
+    const codventa=codventa1;
+    const codusuario=id;
+    const codadmin = codadmin1;
+    const detalle= detalle_venta;
+    //console.log(detalle);
+    try{
+      const responseAdmin = await axios.get(`http://fast.spring.informaticapp.com:9060/admin/user/${codadmin}`)
+      let responseClient = await axios.get(`http://fast.spring.informaticapp.com:9060/admin/user/${codusuario}`);
+      const datosCliente= responseClient.data; 
+      const datosAdmin = responseAdmin.data;
+      //console.log(datosCliente);
+      Swal.fire({
+      title: 'Generar boleta: Cliente',
+      showCancelButton: false, // Ocultar el botón de cancelar de SweetAlert
+      showConfirmButton: false ,// Ocultar el botón de confirmar de SweetAlert
+      html: ` 
+        <form id="agregarUsuarioForm" method="post" action="" >
+          <input type="hidden" id="detalle_venta" name="detalle_venta" value ="detalle">
+          <div class="form-group">
+            <label for="dni">Código de venta:</label>
+            <input type="number" class="form-control" id="codventa" name="codventa" value ="${codventa}" readonly required>
+          </div>
+          <div class="form-group">
+            <label for="dni">DNI:</label>
+            <input type="number" class="form-control" id="dni" name ="dni" value ="${datosCliente.dni}" required>
+          </div>
+          <div class="form-group">
+            <label for="nombre">Nombre del Cliente:</label>
+            <input type="text" class="form-control" id="nombre" name="nombre" value="${datosCliente.nombres}" required>
+          </div>
+          <div class="form-group">
+            <label for="apellidos">Apellidos</label>
+            <input type="text" class="form-control" id="apellidos" name="apellidos" value ="${datosCliente.apellidos}"required>
+          </div>
+            <div class="form-group">
+            <label for="telefono">Telefono</label>
+            <input type="tel" class="form-control" id="telefono" name="telefono" value ="${datosCliente.numcelular}"required>
+          </div>
+          <div class="form-group">
+            <label for="direccion">Direccion</label>
+            <input type="text" class="form-control" id="direccion" name="direccion" value ="${datosCliente.direccion}"required>
+          </div>
+          <br/>
+          <button type="submit" class="submit" style="background-color: #4CAF50; border: none; color: white; padding: 10px 24px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; border-radius: 5px; cursor: pointer;" id="registrarBoton" onclick="generarPDF('${datosCliente.codusuario}','${codventa}','${datosAdmin.codsucursal.codempresa.codempresa}')">Registrar</button>
+          <a href="#" class="cancel" style="background-color: #d33; border: none; color: white; padding: 10px 24px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; border-radius: 5px; cursor: pointer; margin-left: 10px;" id="cancelarBoton">Cancelar</a>
+        </form>`
+        });
+        
+        // Agregar listener de evento para el botón "Registrar"
+        document.getElementById('agregarUsuarioForm').addEventListener('submit', async (event) => {
+          event.preventDefault(); // Evitar que el formulario se envíe de inmediato
+          
+          try {
+              // Enviar el formulario manualmente
+              const responseVenta = await axios.get(`http://fast.spring.informaticapp.com:9060/admin/ventas/${codventa}`);
+              const venta= responseVenta.data;
+              console.log(venta.codventa);
+              const dataVenta ={ 
+                codventa: venta.codventa,
+                codusuario:{
+                  codusuario:venta.codusuario.codusuario,
+                },
+                tipoVenta: venta.tipoVenta,
+                tipoComprobante:venta.tipoComprobante,
+                total: venta.total,
+                estado:"2",
+                nombreEmpresa:venta.nombreEmpresa,
+                codcaja:{
+                  codcaja:venta.codcaja.codcaja,
+                },
+                fechaHora:venta.fechaHora,
+              }
+              console.log(dataVenta);
+              const response = await axios.put("http://fast.spring.informaticapp.com:9060/admin/ventas",dataVenta);
+              //console.log(response)
+              Swal.fire('Vendido!', '', 'success');
+              setTimeout(function () {
+                  location.reload();
+              }, 1000);
+          } catch (error) {
+              Swal.fire('Error', 'Ha ocurrido un error al enviar el formulario', 'error');
+          }
+        });
+
+        document.getElementById('cancelarBoton').addEventListener('click', () => {
+            Swal.close();
+        }); 
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  </script>
+<script>
+  async function generarPDF(codusuario,codventa1,sucursal) {
+    try {
+      let codventa= codventa1;
+      let empresa = sucursal;
+      //console.log(codventa);
+      // Captura los valores de los campos del formulario
+      const responseEmpresa = await axios.get(`http://fast.spring.informaticapp.com:9060/admin/empresas/${empresa}`);
+      const responseVentas = await axios.get("http://fast.spring.informaticapp.com:9060/admin/ventas");
+      const responseDetalleVentas = await axios.get("http://fast.spring.informaticapp.com:9060/admin/detalle_ventas");
+      const detalle_venta = responseDetalleVentas.data;
+      ///////////
+      const datosEmpresa = responseEmpresa.data;
+      const nombresEmpresa =  datosEmpresa.nombres;
+      const direccionEmpresa = datosEmpresa.direccion;
+      const telefonoEmpresa = datosEmpresa.telefono;
+      const emailEmpresa = datosEmpresa.correo;
+      const ruc = datosEmpresa.ruc;
+      ///////////
+      //console.log(detalle_venta, "detalle_ventas");
+      const ventas = responseVentas.data;
+      //console.log(ventas,"sucursal ventas");
+      const arrayVentasSucursal = [];
+      const arrayDetalleVentasSucursal = [];
+      for (let i = 0; i < ventas.length; i++) { 
+        //console.log(ventas[i].codventa);
+        if (ventas[i].codventa == codventa) {
+          arrayVentasSucursal.push(ventas[i]);
+          for (let j = 0; j < detalle_venta.length; j++) { 
+            if (detalle_venta[j].codventa.codventa === ventas[i].codventa) {
+              arrayDetalleVentasSucursal.push(detalle_venta[j]);
+            }
+          }
+        }
+      } 
+
+      const UserResponse = await axios.get(`http://fast.spring.informaticapp.com:9060/admin/user/${codusuario}`);
+      const user = UserResponse.data;
+      const nombre = user.nombres;
+      const apellidos = user.apellidos;
+      const celular = user.numcelular;
+      const dni = user.dni;
+      const tipoventa = "delivery";
+      const direccion = user.direccion;
+      let total = 0;
+      const fechaHoraActual = new Date();
+
+      // Formatear la fecha y hora en un formato deseado
+      const formatoFechaHora = `${fechaHoraActual.getFullYear()}-${(fechaHoraActual.getMonth() + 1).toString().padStart(2, "0")}-${fechaHoraActual.getDate().toString().padStart(2, "0")} ${fechaHoraActual.getHours().toString().padStart(2, "0")}:${fechaHoraActual.getMinutes().toString().padStart(2, "0")}:${fechaHoraActual.getSeconds().toString().padStart(2, "0")}`;
+      //const codventa= ventaData[0].codventa;
+      let fechahora = formatoFechaHora;
+      // Función para convertir dígitos numéricos a palabras en español
+      function convertirNumeroAPalabras(numero) {
+        const unidades = ["", "uno", "dos", "tres", "cuatro", "cinco", "seis", "siete", "ocho", "nueve"];
+        const especiales = ["diez", "once", "doce", "trece", "catorce", "quince", "dieciséis", "diecisiete", "dieciocho", "diecinueve"];
+        const decenas = ["", "", "veinte", "treinta", "cuarenta", "cincuenta", "sesenta", "setenta", "ochenta", "noventa"];
+        const centenas = ["", "ciento", "doscientos", "trescientos", "cuatrocientos", "quinientos", "seiscientos", "setecientos", "ochocientos", "novecientos"];
+
+        if (numero < 10) {
+          return unidades[numero];
+        } else if (numero < 20) {
+          return especiales[numero - 10];
+        } else if (numero < 100) {
+          const unidad = numero % 10;
+          const decena = Math.floor(numero / 10);
+          if (unidad === 0) {
+            return decenas[decena];
+          } else {
+            return decenas[decena] + " y " + unidades[unidad];
+          }
+        } else if (numero < 1000) {
+          const unidad = numero % 10;
+          const decena = Math.floor((numero % 100) / 10);
+          const centena = Math.floor(numero / 100);
+          if (decena === 0 && unidad === 0) {
+            return centenas[centena];
+          } else {
+            return centenas[centena] + " " + convertirNumeroAPalabras(numero % 100);
+          }
+        } else {
+          return "";
+        }
+      }
+
+      const doc = new jsPDF({
+          format: "a6",
+      });
+      doc.setFont("times");
+      doc.setFontSize(10);
+      // Agrega los datos al documento PDF
+      doc.text(`${nombresEmpresa}`, 35, 5);
+      doc.setFontSize(8);
+      doc.text(`Dirección Empresa: ${direccionEmpresa}`, 26, 8);
+      doc.setFontSize(7);
+      doc.text(`Telefono : ${telefonoEmpresa}`, 38, 17);
+      doc.setFontSize(6);
+      doc.text(`RUC: ${ruc}`, 40, 20);
+      doc.setFontSize(10);
+      doc.text(`----------------------------------------------------------------------------------`, 5, 22); 
+      doc.text(`BOLETA ELECTRÓNICA B001-${codventa}`, 25 , 26);
+      doc.text(`----------------------------------------------------------------------------------`, 5, 30); 
+      doc.text(`Fecha: ${fechahora}`, 5, 33);
+      doc.text(`Nombre: ${nombre}`, 5, 36);
+      doc.text(`Apellidos: ${apellidos}`, 5, 39);
+      doc.text(`Celular: ${celular}`, 5, 42);
+      doc.text(`DNI: ${dni}`, 5, 45);
+      doc.text(`Tipo de venta: ${tipoventa}`, 5, 48);
+      doc.text(`Dirección: ${direccion}`, 5, 51);
+      doc.text(`DESCRIPCION` , 5 , 61);
+      doc.text(`----------------------------------------------------------------------------------`, 5, 64);
+      doc.text(`Producto`, 5,70 );
+      doc.text(`Cantidad`, 45,70 );
+      doc.text(`Precio Unitario`, 60,70 );
+      doc.text(`Importe`, 85,70 );
+      let y=75;
+      let x=5;
+      
+      for (let i = 0; i < arrayDetalleVentasSucursal.length; i++) {
+        const titulo = arrayDetalleVentasSucursal[i].codplatillo.nombres;
+        const precio = arrayDetalleVentasSucursal[i].precio;
+        const cantidad = arrayDetalleVentasSucursal[i].cantidad;
+        const importe = cantidad*precio;
+        total= total+importe;
+        doc.text(`${titulo}`, x, y);
+        doc.text(`${cantidad}`, x+ 45, y);
+        doc.text(`${precio} soles`, x+55, y);
+        doc.text(`${importe} soles`, x+80, y);
+        y += 5;
+      };
+      const totalTexto = convertirNumeroAPalabras(total) + " soles";
+      doc.text(`----------------------------------------------------------------------------------`, 5, y);
+      doc.text(`SUB TOTAL`, 40, y+5);
+      doc.text(`S/`, 70, y+5);
+      doc.text(`${total}`, 84, y+5);
+      doc.text(`DESCUENTO`, 40, y+8);
+      doc.text(`S/`, 70, y+8);
+      doc.text(`0.00`, 86, y+8);
+      doc.text(`INAFECTA`, 40, y+11);
+      doc.text(`S/`, 70, y+11);
+      doc.text(`0.00`, 86, y+11);
+      doc.text(`IGV (18%)`, 40, y+14);
+      doc.text(`S/`, 70, y+14);
+      doc.text(`0.00`, 86, y+14);
+      doc.text(`ICBPER`, 40, y+17);
+      doc.text(`S/`, 70, y+17);
+      doc.text(`0.00`, 86, y+17);
+      doc.text(`TOTAL`, 40, y+20);
+      doc.text(`S/`, 70, y+20);
+      doc.text(`${total}`, 84, y+20);
+      doc.text(`----------------------------------------------------------------------------------`, 5, y+23);
+      doc.text(`SON: ${totalTexto}`, 5, y+26);
+      doc.text(`----------------------------------------------------------------------------------`, 5, y+30);
+      doc.text(`Gracias por su preferencia`, 30, y+33);
+      doc.setFontSize(8);
+      doc.text(`Bienes transferidos en la amazonía`, 28, y+36);
+      doc.text(`Para ser consumidos en la misma`, 30, y+39);
+      doc.text(`© 2023 ${nombresEmpresa}`, 30, y+42);
+      // Descarga el documento PDF
+      doc.save("compra.pdf", { autoDownload: true });
+    } catch (error) {
+      console.error(error);
+    }
+  }
+</script>
+<script>
+  async function Agregar(codventa1) {
+    let codventa = codventa1;
+    const plato = await axios.get("http://fast.spring.informaticapp.com:9060/admin/menues");
+    const menues = plato.data;
+    Swal.fire({
+      title: 'Agregar Menú',
+      showCancelButton: false,
+      showConfirmButton: false,
+      html: `
+        <form id="agregarUsuarioForm" method="post" action="/user/WaiterVentas1">
+          <input type="hidden" id="empresa" value="<%= empresa %>">
+          <div id="platos-container" class="form-group">
+            <!-- Los campos de los platos se generarán aquí -->
+          </div>
+          <br/>
+          <button type="submit" class="submit" style="background-color: #4CAF50; border: none; color: white; padding: 10px 24px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; border-radius: 5px; cursor: pointer;" id="registrarBoton">Registrar</button>
+          <a href="#" class="cancel" style="background-color: #d33; border: none; color: white; padding: 10px 24px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; border-radius: 5px; cursor: pointer; margin-left: 10px;" id="cancelarBoton">Cancelar</a>
+        </form>
+      `
+    });
+    
+    const empresa = document.getElementById('empresa').value;
+    console.log(empresa);
+    
+    const platosContainer = document.getElementById('platos-container');
+    
+    menues.forEach((platillo, index) => {
+      if (platillo.codsucursal.codempresa.nombres === empresa) {
+        const inputName = `platillo${index + 1}`;
+        const inputPrecioName = `precio${index + 1}`;
+        const inputCantidadName = `cantidad${index + 1}`;
+        const checkboxId = `platillo-checkbox${index + 1}`;
+
+        const div = document.createElement('div');
+        div.classList.add('form-group');
+
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.id = checkboxId;
+        checkbox.name = 'platillo';
+        checkbox.value = platillo.codplatillo;
+
+        const label = document.createElement('label');
+        label.htmlFor = checkboxId;
+        label.textContent = platillo.nombres;
+        label.name = 'platillos';
+        label.value = platillo.nombres;
+
+        const inputCantidad = document.createElement('input');
+        inputCantidad.type = 'number';
+        inputCantidad.className="form-control"
+        inputCantidad.id = inputCantidadName;
+        inputCantidad.name = inputCantidadName;
+        inputCantidad.placeholder = 'Cantidad';
+        inputCantidad.required = false;
+        inputCantidad.disabled = true;
+
+        const labelPrecio = document.createElement('label');
+        labelPrecio.htmlFor = inputPrecioName;
+        labelPrecio.textContent = 'Precio';
+
+        const inputPrecio = document.createElement('input');
+        inputPrecio.type = 'text';
+        inputPrecio.id = inputPrecioName;
+        inputPrecio.name = inputPrecioName;
+        inputPrecio.value = platillo.precio;
+        inputPrecio.className= "form-control"
+        inputPrecio.disabled = true;
+
+        const botonMas = document.createElement('button');
+
+        div.appendChild(checkbox);
+        div.appendChild(label);
+        div.appendChild(inputCantidad);
+        div.appendChild(labelPrecio);
+        div.appendChild(inputPrecio);
+        div.appendChild(document.createElement('br'));
+
+        platosContainer.appendChild(div);
+
+        checkbox.addEventListener('change', (event) => {
+          inputCantidad.disabled = !event.target.checked;
+          inputPrecio.disabled = !event.target.checked;
+        });
+      }
+    });
+    let total=0;
+    document.getElementById('agregarUsuarioForm').addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const form = event.target;
+      const formData = new FormData(form);
+      const platosSeleccionados = form.querySelectorAll('input[name="platillo"]:checked');
+
+      const enviarDatos = async () => {
+        try {
+          for (const platillo of platosSeleccionados) {
+            const platilloIndex = platillo.id.replace('platillo-checkbox', '');
+            console.log(platilloIndex,"indice")
+            const cantidadInput = form.querySelector(`input[name="cantidad${platilloIndex}"]`);
+            const cantidad = cantidadInput ? parseInt(cantidadInput.value) : 0;
+            const precioInput = form.querySelector(`input[name="precio${platilloIndex}"]`);
+            const precio = precioInput ? parseInt(precioInput.value) : 0;
+            console.log(cantidad, "cantidad", precio, "precio");
+            total=total + (precio*cantidad);
+
+            let rowData = {
+              codplatillo: {
+                codplatillo: platillo.value,
+              },
+              cantidad: cantidad,
+              codventa: {
+                codventa: codventa,
+              },
+              precio: precio,
+              codmesa: {
+                codmesa: 7,
+              },
+              estado: 1,
+              pedidonuevo:1,
+            };
+            const response = await axios.post('http://fast.spring.informaticapp.com:9060/admin/detalle_ventas', rowData);
+          }
+          const responseVenta = await axios.get(`http://fast.spring.informaticapp.com:9060/admin/ventas/${codventa}`);
+          const venta= responseVenta.data;
+          total= total+ parseInt(venta.total);
+          console.log(venta);
+          const dataVenta ={
+            codventa:codventa,
+            tipoVenta:venta.tipoVenta,
+            tipoComprobante:venta.tipoComprobante,
+            total: total,
+            estado:venta.estado,
+            nombreEmpresa:venta.nombreEmpresa,
+            codusuario:{
+              codusuario: venta.codusuario.codusuario,
+            },
+            codcaja:{
+              codcaja:venta.codcaja.codcaja,
+            },
+            fechaHora:venta.fechaHora,
+          }
+          const responsePostVenta = await axios.put("http://fast.spring.informaticapp.com:9060/admin/ventas",dataVenta);
+          Swal.fire('Platillo Agregado!', '', 'success');
+          setTimeout(function () {
+            location.reload();
+          }, 1000);
+        } catch (error) {
+          Swal.fire('Error', 'Ha ocurrido un error al enviar el formulario', 'error');
+        }
+      };
+      enviarDatos();
+    });
+
+    document.getElementById('cancelarBoton').addEventListener('click', () => {
+      Swal.close();
+    });
+  }
+</script>
+<script>
+  async function Quitar(codventa1,iddetalleventa) {
+    let codventa= codventa1;
+    let coddetalleventa= iddetalleventa;
+    console.log(codventa,coddetalleventa)
+    try {
+      const responseVenta= await axios.get(`http://fast.spring.informaticapp.com:9060/admin/ventas/${codventa}`);
+      const venta= responseVenta.data;
+      let total = parseInt(venta.total);
+      console.log(total);
+      const responseDetalleventa = await axios.get(`http://fast.spring.informaticapp.com:9060/admin/detalle_ventas/${coddetalleventa}`);
+      const detalleVenta = responseDetalleventa.data;
+      console.log(detalleVenta);
+      let subtotal = parseInt(detalleVenta.codplatillo.precio)*parseInt(detalleVenta.cantidad);
+      console.log(subtotal,"subtotal");
+      total= total - subtotal;
+      const dataVenta ={
+        codventa:codventa,
+        tipoVenta:venta.tipoVenta,
+        tipoComprobante:venta.tipoComprobante,
+        total: total,
+        estado:venta.estado,
+        nombreEmpresa:venta.nombreEmpresa,
+        codusuario:{
+          codusuario: venta.codusuario.codusuario,
+        },
+        codcaja:{
+          codcaja:venta.codcaja.codcaja,
+        },
+        fechaHora:venta.fechaHora,
+      }
+      console.log(dataVenta,"venta enviada")
+      const deleteDetalle = await axios.delete(`http://fast.spring.informaticapp.com:9060/admin/detalle_ventas/${coddetalleventa}`);
+      const responseVentaPut = await axios.put("http://fast.spring.informaticapp.com:9060/admin/ventas",dataVenta);
+
+      Swal.fire('Platillo eliminado!', '', 'success');
+      setTimeout(function () {
+        location.reload();
+      }, 1000);
+    } catch (error) {
+      console.log(error);
+      Swal.fire('Error', 'Ha ocurrido un error al enviar el formulario', 'error');
+    }
+  }
+</script>

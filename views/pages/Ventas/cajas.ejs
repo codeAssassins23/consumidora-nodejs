@@ -1,0 +1,82 @@
+<%- include('../includes/header.ejs')%>
+<%-include('../includes/menu.ejs')%>
+        <div class="main-panel">
+          <div class="content-wrapper">
+            <!-- Quick Action Toolbar Starts-->
+            <div class="row quick-action-toolbar">
+              <div class="col-md-12 grid-margin">
+                <div class="card">
+                  <div class="card-header d-block d-md-flex">
+                    <h5 class="mb-0">Gestión de Cajas</h5>
+                    <i class="icon-bulb"></i>
+                  </div>
+                  <div class="d-md-flex row m-0 quick-action-btns" role="group" aria-label="Quick action buttons">
+                    <div class="card-body">
+                      
+                      <p>Esta sección contiene la información de la gestión de cajas, el cual se puede acceder a través del POSTMAN en la siguiente dirección:
+
+                        <img src="assets/images/api/cajas/general.png">
+                      </p>
+                      <p>
+                        Cabe mencionar que es necesario que obtengas el token de seguridad para tener acceso a todos los recursos, si todavía no cuentas con uno, puedes solicitarlo <a href="/credenciales">aquí</a>
+                      </p>
+                      <hr>
+                      <h4>Método GET</h4>
+                      <p>A través de este método puede solicitar información de todos las cajas o de una caja en particular, para solicitar información de todos las cajas debe hacerlo a trávés de la siguiente dirección:
+
+                        <img src="assets/images/api/cajas/GET.png">
+                      </p>
+                      <p>El resultado de la consulta de todos las cajas debería ser como se muestra en la siguiente imagen:
+
+                        <img src="assets/images/api/cajas/GET-DATOS.png">
+                      </p>
+                     
+                      <p>Si desea solicitar información de una caja en particular lo debe hacer a través de la siguiente dirección
+                        <img src="assets/images/api/cajas/GET1.png">
+                      </p>
+                      <p>El resultado de la consulta de una caja en particular debería ser como se muestra en la siguiente imagen:
+
+                        <img src="assets/images/api/cajas/GET1-DATOS.png">
+                        
+                      </p>
+                      <hr>
+                      <h4>Método POST</h4>
+                      <p>A través de este método puede enviar información de una caja en particular, para solicitar esta información debe hacerlo a trávés de la siguiente dirección:
+
+                        <img src="assets/images/api/cajas/POST.png">
+                      </p>
+                      <p>El resultado del envío de una caja en particular debería ser como se muestra en la siguiente imagen:
+
+                        <img src="assets/images/api/cajas/POST-DATOS.png">
+                      </p>
+
+                      <hr>
+                      <h4>Método PUT</h4>
+                      <p>A través de este método puede actualizar información de una caja en particular, para solicitar esta información debe hacerlo a trávés de la siguiente dirección:
+
+                        <img src="assets/images/api/cajas/PUT.png">
+                      </p>
+                      <p>El resultado de la actualización de una caja en particular debería ser como se muestra en la siguiente imagen:
+
+                        <img src="assets/images/api/cajas/PUT-DATOS.png">
+                      </p>
+                     <hr>
+                      <h4>Método DELETE</h4>
+                      <p>A través de este método puede eliminar información de una caja en particular, para realizar esta acción debe hacerlo a trávés de la siguiente dirección:
+
+                        <img src="assets/images/api/cajas/DELETE.png">
+                      </p>
+                      <p>El resultado de eliminar una caja en particular debería ser como se muestra en la siguiente imagen:
+
+                        <img src="assets/images/api/cajas/DELETE-DATOS.png">
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Quick Action Toolbar Ends-->
+          </div>
+          <!-- content-wrapper ends -->
+          <!-- partial:partials/_footer.html -->
+  <%- include('../includes/footer.ejs')%>

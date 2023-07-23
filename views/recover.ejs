@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from coderthemes.com/hyper_2/saas/pages-recoverpw-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 13 Jun 2023 02:02:53 GMT -->
+<head>
+    <meta charset="utf-8" />
+    <title>Recover Password | Hyper - Responsive Bootstrap 5 Admin Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+    <meta content="Coderthemes" name="author" />
+ 
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="./assets/images/favicon.ico">
+
+    <!-- Theme Config Js -->
+    <script src="./assets/js/hyper-config.js"></script>
+
+    <!-- App css -->
+    <link href="./assets/css/app-saas.min.css" rel="stylesheet" type="text/css" id="app-style" />
+
+    <!-- Icons css -->
+    <link href="./assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <style>
+      .centered-ul {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 10px; /* Ajusta la altura según tus necesidades */
+      }
+    </style>
+</head>
+
+<body class="authentication-bg pb-0">
+
+    <div class="auth-fluid">
+        <!--Auth fluid left content -->
+        <div class="auth-fluid-form-box">
+            <div class="card-body d-flex flex-column h-100 gap-3">
+
+                <!-- Logo -->
+                <div class="auth-brand text-center text-lg-start">
+                    <a href="index.html" class="logo-dark">
+                        <span><img src="assets/images/logo.png" alt="dark logo" height="22"></span>
+                    </a>
+                    <a href="index.html" class="logo-light">
+                        <span><img src="assets/images/fastFood.png" alt="logo" height="22"></span>
+                    </a>
+                </div>
+                <div class="centered-ul">
+                  <ul>
+                    <% if (message) { %>
+                    <li><%= message %></li>
+                    <% } %>
+                  </ul>
+                </div>
+                <div class="my-auto">
+                    <!-- title-->
+                    <h4>Restablecer la contraseña</h4>
+                    <p class="text-muted mb-4">Ingrese su dirección de correo electrónico y le enviaremos un correo electrónico con instrucciones para restablecer su contraseña.</p>
+
+                    <!-- form -->
+                    <form action="/recuperar" method="post">
+                        <div class="mb-3">
+                            <label for="emailaddress" class="form-label">Dirección de correo electrónico
+                            </label>
+                            <input class="form-control" type="email" id="emailaddress" name="correo" placeholder="Ingrese su correo electronico">
+                        </div>
+                        <div class="mb-0 text-center d-grid">
+                            <button class="btn btn-primary"   type="submit"><i class="mdi mdi-lock-reset"></i> Restablecer la contraseña </button>
+                        </div>
+                    </form>
+                    <!-- end form-->
+                </div>
+
+                <!-- Footer-->
+                <footer class="footer footer-alt">
+                    <p class="text-muted">Volver al<a href="/login" class="text-muted ms-1"><b>Log In</b></a></p>
+                </footer>
+
+            </div> <!-- end .card-body -->
+        </div>
+        <!-- end auth-fluid-form-box-->
+
+        <!-- Auth fluid right content -->
+        <div class="auth-fluid-right text-center">
+            <div class="auth-user-testimonial">
+                <h2 class="mb-3">¡Me encanta la comida!</h2>
+                <p class="lead"><i class="mdi mdi-format-quote-open"></i> "Encuentra tu comida favorita de las marcas más populares en nuestra plataforma de delivery. ¡La elección perfecta para los amantes de la comida rápida!" <i class="mdi mdi-format-quote-close"></i>
+                </p>
+                <p>
+                    TeamFive
+                </p>
+            </div> <!-- end auth-user-testimonial-->
+        </div>
+        <!-- end Auth fluid right content -->
+    </div>
+    <!-- end auth-fluid-->
+    <!-- Vendor js -->
+    <script src="assets/js/vendor.min.js"></script>
+
+    <!-- App js -->
+    <script src="assets/js/app.min.js"></script>
+
+</body>
+
+
+<!-- Mirrored from coderthemes.com/hyper_2/saas/pages-recoverpw-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 13 Jun 2023 02:02:53 GMT -->
+</html>

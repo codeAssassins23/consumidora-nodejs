@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Mirrored from coderthemes.com/hyper_2/saas/pages-register.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 13 Jun 2023 02:02:53 GMT -->
+  <head>
+    <meta charset="utf-8" />
+    <title>Register | Hyper - Responsive Bootstrap 5 Admin Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      content="A fully featured admin theme which can be used to build CRM, CMS, etc."
+      name="description"
+    />
+    <meta content="Coderthemes" name="author" />
+
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="assets/images/favicon.ico" />
+
+    <!-- Theme Config Js -->
+    <script src="assets/js/hyper-config.js"></script>
+
+    <!-- App css -->
+    <link
+      href="assets/css/app-saas.min.css"
+      rel="stylesheet"
+      type="text/css"
+      id="app-style"
+    />
+    <style>
+      .centered-ul {
+        display: flex;
+        justify-content: center;
+      }
+    </style>
+    <!-- Icons css -->
+    <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+  </head>
+
+  <body class="authentication-bg">
+    <div class="position-absolute start-0 end-0 start-0 bottom-0 w-100 h-100">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="100%"
+        height="100%"
+        viewBox="0 0 800 800"
+      >
+        <g fill-opacity="0.22">
+          <circle
+            style="fill: #f5c38e"
+            cx="400"
+            cy="400"
+            r="600"
+          />
+          <circle
+            style="fill: #f5c38e"
+            cx="400"
+            cy="400"
+            r="500"
+          />
+          <circle
+            style="fill: #f5c38e"
+            cx="400"
+            cy="400"
+            r="300"
+          />
+          <circle
+            style="fill:#f5c38e"
+            cx="400"
+            cy="400"
+            r="200"
+          />
+          <circle
+            style="fill: #f5c38e"
+            cx="400"
+            cy="400"
+            r="100"
+          />
+        </g>
+      </svg>
+    </div>
+
+    <div class="account-pages pt-2 pt-sm-5 pb-4 pb-sm-5 position-relative">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-xxl-4 col-lg-5">
+            <div class="centered-ul">
+              <ul>
+                <% if (message) { %>
+                <li><%= message %></li>
+                <% } %>
+              </ul>
+            </div>
+            <div class="card">
+              <!-- Logo-->
+              <div class="card-header py-4 text-center" style="background-color: #f79122;">
+                <a href="index.html">
+                  <span
+                    ><img src="assets/images/logo.png" alt="logo" height="22"
+                  /></span>
+                </a>
+              </div>
+
+              <div class="card-body p-4">
+                <div class="text-center w-75 m-auto">
+                  <h4 class="text-dark-50 text-center mt-0 fw-bold">
+                    Registro
+                  </h4>
+                  <p class="text-muted mb-4">
+                    
+                  ¿No tienes una cuenta? Crea tu cuenta, te llevará menos de un minuto
+                  </p>
+                </div>
+
+                <form action="/register" Method="post">
+                  <div class="mb-3">
+                    <label for="fullname" class="form-label">DNI</label>
+                    <input
+                      class="form-control"
+                      type="text"
+                      id="dni"
+                      name="dni"
+                      placeholder="Ingrese su DNI"
+                      required
+                    />
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="fullname" class="form-label">Nombres</label>
+                    <input
+                      class="form-control"
+                      type="text"
+                      id="nombres"
+                      name="nombres"
+                      placeholder="Ingrese su nombre"
+                      required
+                    />
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="fullname" class="form-label">Apellidos</label>
+                    <input
+                      class="form-control"
+                      type="text"
+                      id="apellidos"
+                      name="apellidos"
+                      placeholder="Ingrese sus apellidos"
+                      required
+                    />
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="emailaddress" class="form-label"
+                      >Correo electrónico</label
+                    >
+                    <input
+                      class="form-control"
+                      type="email"
+                      id="emailaddress"
+                      name="email"
+                      required
+                      placeholder="Ingrese su correo"
+                    />
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="fullname" class="form-label"
+                      >Numero de celular</label
+                    >
+                    <input
+                      class="form-control"
+                      type="number"
+                      id="telefono"
+                      name="telefono"
+                      placeholder="Ingrese su numero de celular"
+                      required
+                    />
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="fullname" class="form-label"
+                      >Ingrese su direccion</label
+                    >
+                    <input
+                      class="form-control"
+                      type="text"
+                      id="direccion"
+                      name="direccion"
+                      placeholder="Ingrese su dirección"
+                      required
+                    />
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="password" class="form-label">Contraseña</label>
+                    <div class="input-group input-group-merge">
+                      <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        class="form-control"
+                        placeholder="Ingresa tu Contraseña"
+                      />
+                      <div class="input-group-text" data-password="false">
+                        <span class="password-eye"></span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="password" class="form-label"
+                      >Confirma tu Contraseña</label
+                    >
+                    <div class="input-group input-group-merge">
+                      <input
+                        type="password"
+                        id="password_confirm"
+                        name="password_confirm"
+                        class="form-control"
+                        placeholder="Ingresa tu Contraseña"
+                      />
+                      <div class="input-group-text" data-password="false">
+                        <span class="password-eye"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mb-3 text-center">
+                    <button class="btn btn-primary" type="submit">
+                      Sign Up
+                    </button>
+                  </div>
+                </form>
+              </div>
+              <!-- end card-body -->
+            </div>
+            <!-- end card -->
+
+            <div class="row mt-3">
+              <div class="col-12 text-center">
+                <p class="text-muted">
+                 ¿Ya tienes cuenta?
+                  <a href="/login" class="text-muted ms-1"><b>Log In</b></a>
+                </p>
+              </div>
+              <!-- end col-->
+            </div>
+            <!-- end row -->
+          </div>
+          <!-- end col -->
+        </div>
+        <!-- end row -->
+      </div>
+      <!-- end container -->
+    </div>
+    <!-- end page -->
+
+    <footer class="footer footer-alt">
+      2023 -
+      <script>
+        document.write(new Date().getFullYear());
+      </script>
+      © <a href="/documentation">Documentación
+    </footer>
+
+    <!-- Vendor js -->
+    <script src="assets/js/vendor.min.js"></script>
+
+    <!-- App js -->
+    <script src="assets/js/app.min.js"></script>
+  </body>
+
+  <!-- Mirrored from coderthemes.com/hyper_2/saas/pages-register.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 13 Jun 2023 02:02:53 GMT -->
+</html>

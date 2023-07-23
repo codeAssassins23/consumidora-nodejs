@@ -1,0 +1,208 @@
+<%- include('./includes/head.ejs')%>
+<%- include('./includes/menus.ejs')%>
+<!-- aquí empieza el contenido -->
+<input type="hidden" value="<%= sucursalUser %>" id="sucursal">
+      <div class="container-fluid">
+  <div class="row">
+    <div class="col-12 box-margin">
+      <div class="card">
+        <div class="card-body">
+            <h1 class="display-5 fw-normal text-center">Reporte Ventas <%= sucursalUser %></h1>
+            <hr />
+            <div class="col-sm-12 py-2">
+              <label for="fecha-inicial-input" class="form-label">Fecha inicial:</label>
+              <input type="date" id="fecha-inicial-input" class="form-control">
+            </div>
+            <div class="col-sm-12 py-2">
+              <label for="fecha-final-input" class="form-label">Fecha final:</label>
+              <input type="date" id="fecha-final-input" class="form-control">
+            </div>
+            <div class="col-sm-12 py-2">
+              <button id="filtrar-btn" class="btn btn-primary">Filtrar</button>
+              <button id="mostrar-todo-btn" class="btn btn-secondary">Mostrar Todo</button>
+            </div>
+            <div>
+            <table class="table dt-responsive nowrap w-100 " id="mitabla">
+
+                <thead>
+                  <tr>
+                    <th>Código de venta</th>
+                    <th>Nombre del platillo</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                    <th>Subtotal</th>
+                    <th>Tipo de Venta</th>
+                    <th>Fecha de Registro</th>
+                  </tr>
+                </thead>
+                <tbody>            
+                </tbody>
+              </table>
+            </div>
+        </div> <!-- end card body-->
+      </div> <!-- end card -->
+    </div><!-- end col-->
+  </div>                      
+</div>
+    <!-- jQuery, Popper.js, Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.colVis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.flash.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script> 
+    <script>
+      let originalData = []; // Variable para almacenar los datos originales
+    
+      async function mostrarProveedores() {
+        const response = await axios.get("http://fast.spring.informaticapp.com:9060/admin/ventas");
+        const sucursal = document.getElementById("sucursal").value;
+        const ventas = response.data;
+        const responseDetalle= await axios.get("http://fast.spring.informaticapp.com:9060/admin/detalle_ventas");
+        const detalle_venta = responseDetalle.data;
+        const arrayVentasSucursal = [];
+        const arrayDetalleVentasSucursal = [];
+        for (let i = 0; i < ventas.length; i++) { 
+          if (ventas[i].nombreEmpresa === sucursal) {
+            arrayVentasSucursal.push(ventas[i]);
+            for (let j = 0; j < detalle_venta.length; j++) { 
+              if (detalle_venta[j].codventa.codventa === ventas[i].codventa) {
+                arrayDetalleVentasSucursal.push(detalle_venta[j]);
+              }
+            }
+          }
+        }
+        originalData = arrayDetalleVentasSucursal.slice(); // Guardar una copia de los datos originales
+        const tabla = document.getElementById("mitabla");
+        const tbody = tabla.querySelector("tbody");
+    
+        // Vaciar el contenido de la tabla
+        tbody.innerHTML = "";
+    
+        // Recorrer el array de proveedores seleccionados y agregar filas a la tabla
+        arrayDetalleVentasSucursal.forEach((proveedor) => {
+          const subtotal= proveedor.codplatillo.precio*proveedor.cantidad;
+          const estado = proveedor.codventa.estado;
+          if (estado === "2"){
+            const fila = document.createElement("tr");
+            fila.innerHTML = `
+              <td>${proveedor.codventa.codventa}</td>
+              <td>${proveedor.codplatillo.nombres}</td>
+              <td>${proveedor.cantidad}</td>
+              <td>${proveedor.codplatillo.precio}</td>
+              <td>${subtotal}</td>
+              <td>${proveedor.codventa.tipoVenta}</td>
+              <td>${moment(proveedor.codventa.fechaHora).format('DD/MM/YYYY')}</td>
+            `;
+            tbody.appendChild(fila);
+          }
+          
+        });
+    
+        $(document).ready(function() {
+          var table = $('#mitabla').DataTable({
+            
+            responsive: "true",
+            dom: 'Bfrtip',
+            buttons: [
+              {
+                extend:    'excelHtml5',
+				text:      '<i class="fas fa-file-excel"></i> ',
+				titleAttr: 'Exportar a Excel',
+				className: 'btn btn-success'
+			},
+			{
+				extend:    'pdfHtml5',
+				text:      '<i class="fas fa-file-pdf"></i> ',
+				titleAttr: 'Exportar a PDF',
+				className: 'btn btn-danger'
+			},
+			{
+				extend:    'print',
+				text:      '<i class="fa fa-print"></i> ',
+				titleAttr: 'Imprimir',
+				className: 'btn btn-info'
+			},
+            ],
+          });
+    
+          table.buttons().container().appendTo('#mitabla_wrapper .col-md-6:eq(0)');
+    
+          // Agregar el evento click al botón "Filtrar"
+          $('#filtrar-btn').on('click', function() {
+            // Obtener las fechas seleccionadas
+            const fechaInicial = $('#fecha-inicial-input').val();
+            const fechaFinal = $('#fecha-final-input').val();
+    
+            // Filtrar los datos en el rango de fechas
+            const filteredData = originalData.filter(proveedor => {
+              const fechaRegistro = moment(proveedor.codventa.fechaHora, 'YYYY-MM-DD');
+              return fechaRegistro.isBetween(fechaInicial, fechaFinal, null, '[]');
+            });
+    
+            // Limpiar la tabla
+            table.clear();
+    
+            // Agregar las filas filtradas a la tabla
+            filteredData.forEach(proveedor => {
+              const subtotal= proveedor.codplatillo.precio*proveedor.cantidad;
+              const estado = proveedor.codventa.estado;
+              if (estado==="2"){
+                table.row.add([
+                  proveedor.codventa.codventa,
+                  proveedor.codplatillo.nombres,
+                  proveedor.cantidad,
+                  proveedor.codplatillo.precio,
+                  subtotal,
+                  proveedor.codventa.tipoVenta,
+                  moment(proveedor.codventa.fechaHora).format('DD/MM/YYYY')
+                ]);
+              }
+            });
+    
+            // Dibujar la tabla actualizada
+            table.draw();
+          });
+    
+          // Agregar el evento click al botón "Mostrar Todo"
+          $('#mostrar-todo-btn').on('click', function() {
+            // Limpiar la tabla
+            table.clear();
+    
+            // Agregar las filas originales a la tabla
+            originalData.forEach(proveedor => {
+              const subtotal= proveedor.codplatillo.precio*proveedor.cantidad;
+              const estado = proveedor.codventa.estado;
+              if (estado==="2"){
+                table.row.add([
+                  proveedor.codventa.codventa,
+                  proveedor.codplatillo.nombres,
+                  proveedor.cantidad,
+                  proveedor.codplatillo.precio,
+                  subtotal,
+                  proveedor.codventa.tipoVenta,
+                  moment(proveedor.codventa.fechaHora).format('DD/MM/YYYY')
+                ]);
+              }
+            });
+    
+            // Dibujar la tabla actualizada
+            table.draw();
+            $('#fecha-inicial-input').val('');
+$('#fecha-final-input').val('');
+          });
+        });
+      }
+    
+      mostrarProveedores();
+    </script>
+
+<%- include('./includes/foot.ejs')%>

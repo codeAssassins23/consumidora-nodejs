@@ -1,0 +1,169 @@
+            <!-- ========== Left Sidebar Start ========== -->
+            <div class="leftside-menu">
+
+                <!-- Brand Logo Light -->
+                <a href="./" class="logo logo-light">
+                    <span class="logo-lg">
+                        <img src="/assets/images/logo.png" alt="logo">
+                    </span>
+                    <span class="logo-sm">
+                        <img src="/assets/images/icono.png" alt="small logo">
+                    </span>
+                </a>
+
+                <!-- Brand Logo Dark -->
+                <a href="./" class="logo logo-dark">
+                    <span class="logo-lg">
+                        <img src="/assets/images/logo.png" alt="dark logo">
+                    </span>
+                    <span class="logo-sm">
+                        <img src="/assets/images/icono.png" alt="small logo">
+                    </span>
+                </a>
+
+                <!-- Sidebar Hover Menu Toggle Button -->
+                <div class="button-sm-hover" data-bs-toggle="tooltip" data-bs-placement="right" title="Show Full Sidebar">
+                    <i class="ri-checkbox-blank-circle-line align-middle"></i>
+                </div>
+
+                <!-- Full Sidebar Menu Close Button -->
+                <div class="button-close-fullsidebar">
+                    <i class="ri-close-fill align-middle"></i>
+                </div>
+
+                <!-- Sidebar -left -->
+                <div class="h-100" id="leftside-menu-container" data-simplebar>
+                    
+                    <!--- Sidemenu -->
+                    <ul class="side-nav">
+
+                        <li class="side-nav-title">Navegación</li>
+
+                        <li class="side-nav-item">
+                            <a href="/admin" class="side-nav-link">
+                                <i class="uil-home-alt"></i>
+                                <span> Inicio </span>
+                            </a>
+                        </li>
+
+                        <li class="side-nav-item">
+                            <a data-bs-toggle="collapse" href="#sidebarVentas" aria-expanded="false" aria-controls="sidebarVentas" class="side-nav-link">
+                                <i class="uil-money-withdrawal"></i>
+                                <span> Ventas </span>
+                                <span class="menu-arrow"></span>
+                            </a>
+                            <div class="collapse" id="sidebarVentas">
+                                <ul class="side-nav-second-level">
+                                    <li>
+                                      <% if( perfil !=="Super Admin" ){ %>
+                                        <a href="#">En Mesa</a>
+                                        <a href="/admin/ventasWeb">Delivery</a>
+                                      <% } else { %> 
+                                        <a href="#">Resumen de Ventas</a>
+                                      <% } %>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <% if( perfil ==="Super Admin" ){ %>
+                        <li class="side-nav-item">
+                            <a data-bs-toggle="collapse" href="#sidebarEmpresas" aria-expanded="false" aria-controls="sidebarEmpresas" class="side-nav-link">
+                                <i class="uil-money-withdrawal"></i>
+                                <span> Empresas </span>
+                                <span class="menu-arrow"></span>
+                            </a>
+                            <div class="collapse" id="sidebarEmpresas">
+                                <ul class="side-nav-second-level">
+                                    <li>
+                                        <a href="#">Empresas</a>
+                                        <a href="#">Sucursales</a>
+                                        <a href="#">Departamentos</a>
+                                        <a href="./provincias.php">Provincias</a>
+                                        <a href="#">Distritos</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <% }%> 
+
+                        <% if( perfil !=="Super Admin" ){ %>
+                        <li class="side-nav-item">
+                            <a data-bs-toggle="collapse" href="#sidebarCompras" aria-expanded="false" aria-controls="sidebarCompras" class="side-nav-link">
+                                <i class="uil-shopping-cart-alt"></i>
+                                <span> Compras </span>
+                                <span class="menu-arrow"></span>
+                            </a>
+                            <div class="collapse" id="sidebarCompras">
+                                <ul class="side-nav-second-level">
+                                    <li>
+                                        <a href="#">Resumen de Compras</a>
+                                        <a href="#">Proveedores</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <% }%> 
+
+                        <% if( perfil !=="Super Admin" ){ %>
+                        <li class="side-nav-item">
+                            <a href="#" class="side-nav-link">
+                                <i class="uil-table"></i>
+                                <span> Mesas </span>
+                            </a>
+                        </li>
+                        <% }%>
+
+                        <% if( perfil !=="Super Admin" ){ %>
+                        <li class="side-nav-item">
+                            <a data-bs-toggle="collapse" href="#sidebarAlmacen" aria-expanded="false" aria-controls="sidebarAlmacen" class="side-nav-link">
+                                <i class="uil-store"></i>
+                                <span> Almacen </span>
+                                <span class="menu-arrow"></span>
+                            </a>
+                            <div class="collapse" id="sidebarAlmacen">
+                                <ul class="side-nav-second-level">
+                                    <li>
+                                        <a href="#">Productos</a>
+                                        <a href="#">Categorias</a>
+                                        <a href="./almacen.php">Almacen</a>
+                                        <a href="./usuario.php">Almacen</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <% }%>
+
+                        <li class="side-nav-item">
+                            <a data-bs-toggle="collapse" href="#sidebarSeguridad" aria-expanded="false" aria-controls="sidebarSeguridad" class="side-nav-link">
+                                <i class=" uil-shield-check"></i>
+                                <span> Seguridad </span>
+                                <span class="menu-arrow"></span>
+                            </a>
+                            <div class="collapse" id="sidebarSeguridad">
+                                <ul class="side-nav-second-level">
+                                    <li>
+                                        <a href="/admin/user">Usuarios</a>
+                                        <a href="./perfiles.php">Perfiles</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="side-nav-item">
+                            <a href="/admin/reportes" class="side-nav-link">
+                                <i class="uil-chart-bar"></i>
+                                <span> ReportesVentas </span>
+                            </a>
+                        </li>
+                    </ul>
+                    <!--- End Sidemenu -->
+
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <!-- ========== Left Sidebar End ========== -->
+            
+            <!-- ============================================================== -->
+            <!-- Start Page Content here -->
+            <!-- ============================================================== -->
+
+            <div class="content-page">

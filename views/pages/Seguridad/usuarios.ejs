@@ -1,0 +1,94 @@
+<%- include('../includes/header.ejs')%>
+<%-include('../includes/menu.ejs')%>
+        <div class="main-panel">
+          <div class="content-wrapper">
+            <!-- Quick Action Toolbar Starts-->
+            <div class="row quick-action-toolbar">
+              <div class="col-md-12 grid-margin">
+                <div class="card">
+                  <div class="card-header d-block d-md-flex">
+                    <h5 class="mb-0">Gestión de Usuarios</h5>
+                    <i class="icon-bulb"></i>
+                  </div>
+                  <div class="d-md-flex row m-0 quick-action-btns" role="group" aria-label="Quick action buttons">
+                    <div class="card-body">
+                      
+                      <p>Esta sección contiene la información de la gestión de usuarios, el cual se puede acceder a través del POSTMAN en la siguiente dirección:
+                        <img src="assets/images/api/Usuarios/general.png">
+                      </p>
+                      <p>
+                        Cabe mencionar que es necesario que obtengas el token de seguridad para tener acceso a todos los recursos, si todavía no cuentas con uno, puedes solicitarlo <a href="/credenciales">aquí</a>
+                      </p>
+                      <hr>
+                      <h4>Método GET</h4>
+                      <p>A través de este método puede solicitar información de todos los usuarios o de un usuario en particular, para solicitar información de todos los usuarios debe hacerlo a trávés de la siguiente dirección:
+
+                        <img src="assets/images/api/Usuarios/getUsuarios.png">
+                      </p>
+                      <p>El resultado de la consulta de todos los usuarios debería ser como se muestra en la siguiente imagen:
+
+                        <img src="assets/images/api/Usuarios/resultGetUsuarios.png">
+                      </p>
+                     
+                      <p>Si desea solicitar información de un usuario en particular lo debe hacer a través de la siguiente dirección
+                        <img src="assets/images/api/Usuarios/get1Usuarios.png">
+                      </p>
+                      <p>El resultado de la consulta de un usuario en particular debería ser como se muestra en la siguiente imagen:
+
+                        <img src="assets/images/api/Usuarios/resultGet1Usuarios.png">
+                        
+                      </p>
+                      <hr>
+                      <h4>Método POST</h4>
+                      <p>A través de este método puede enviar información de un usuario en particular, para solicitar esta información debe hacerlo a trávés de la siguiente dirección:
+
+                        <img src="assets/images/api/Usuarios/postUsuarios.png">
+                      </p>
+                      <p>El resultado del envío de un usuario en particular debería ser como se muestra en la siguiente imagen:
+
+                        <img src="assets/images/api/Usuarios/resultPostUsuarios.png">
+                      </p>
+                      <p>La Api no permite el ingreso de dos usuarios con el mismo correo electronico, si existe un usuario guardado con el mismo correo, te dará el siguiente resultado:
+
+                        <img src="assets/images/api/Usuarios/resultPostComparar.png">
+                      </p>
+                      <h4>Login de usuarios a través del metodo POST</h4>
+                      <p> Esta url tiene la función de buscar un usuario por el correo electronico que se envía en el cuerpo de la solicitud:
+
+                        <img src="assets/images/api/Usuarios/postLoginUser.png">
+                        
+                      </p>
+
+                      <p>Si no encuentra ningun usuario guardado en la base de datos con ese correo te dará el siguiente mensaje de error:
+                      <img src="assets/images/api/Usuarios/resultPostLoginUser.png"></p>
+
+                      <hr>
+                      <h4>Método PUT</h4>
+                      <p>A través de este método puede actualizar información de un usuario en particular, para solicitar esta información debe hacerlo a trávés de la siguiente dirección:
+
+                        <img src="assets/images/api/Usuarios/putUsuarios.png">
+                      </p>
+                      <p>El resultado de la actualización de un usuario en particular debería ser como se muestra en la siguiente imagen:
+
+                        <img src="assets/images/api/Usuarios/resultPutUsuarios.png">
+                      </p>
+                     <hr>
+                      <h4>Método DELETE</h4>
+                      <p>A través de este método puede eliminar información de un usuario en particular, para realizar esta acción debe hacerlo a trávés de la siguiente dirección:
+
+                        <img src="assets/images/api/Usuarios/deleteUsuarios.png">
+                      </p>
+                      <p>El resultado de eliminar un usuario en particular debería ser como se muestra en la siguiente imagen:
+
+                        <img src="assets/images/api/Usuarios/resultDeleteUsuarios.png">
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Quick Action Toolbar Ends-->
+          </div>
+          <!-- content-wrapper ends -->
+          <!-- partial:partials/_footer.html -->
+  <%- include('../includes/footer.ejs')%>

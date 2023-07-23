@@ -1,0 +1,456 @@
+[
+    {
+        "id": "4",
+        "titulo": "Americana",
+        "imagen": "/assets/images/img/Pizzamia/pi1_Americana.jpg",
+        "categoria": {
+            "nombre": "Pizzamia",
+            "id": "Pizzamia"
+        },
+        "precio": 35
+    },
+    {
+        "id": "5",
+        "titulo": "Barbacoa",
+        "imagen": "/assets/images/img/Pizzamia/pi2_Barbacoa.jpg",
+        "categoria": {
+            "nombre": "Pizzamia",
+            "id": "Pizzamia"
+        },
+        "precio": 32
+    },
+    {
+        "id": "6",
+        "titulo": "Bolognesa",
+        "imagen": "/assets/images/img/Pizzamia/pi3_Bolognesa.jpg",
+        "categoria": {
+            "nombre": "Pizzamia",
+            "id": "Pizzamia"
+        },
+        "precio": 34
+    },
+    {
+        "id": "7",
+        "titulo": "Carnivora",
+        "imagen": "/assets/images/img/Pizzamia/pi4_Canívora.jpg",
+        "categoria": {
+            "nombre": "Pizzamia",
+            "id": "Pizzamia"
+        },
+        "precio": 32
+    },
+    {
+        "id": "8",
+        "titulo": "ChickenBBQ",
+        "imagen": "/assets/images/img/Pizzamia/pi5_ChickenBBQ.jpg",
+        "categoria": {
+            "nombre": "Pizzamia",
+            "id": "Pizzamia"
+        },
+        "precio": 34
+    },
+    {
+        "id": "9",
+        "titulo": "Hawaiana",
+        "imagen": "/assets/images/img/Pizzamia/pi6_Hawaiana.jpg",
+        "categoria": {
+            "nombre": "Pizzamia",
+            "id": "Pizzamia"
+        },
+        "precio": 32
+    },
+    {
+        "id": "10",
+        "titulo": "Hawaiana Chicken BBQ",
+        "imagen": "/assets/images/img/Pizzamia/pi7_HawaiianChickenBBQ.jpg",
+        "categoria": {
+            "nombre": "Pizzamia",
+            "id": "Pizzamia"
+        },
+        "precio": 32
+    },
+    {
+        "id": "11",
+        "titulo": "La Chamba",
+        "imagen": "/assets/images/img/Pizzamia/pi8_La_Chamba.jpg",
+        "categoria": {
+            "nombre": "Pizzamia",
+            "id": "Pizzamia"
+        },
+        "precio": 35
+    },
+    {
+        "id": "12",
+        "titulo": "La Cumpa",
+        "imagen": "/assets/images/img/Pizzamia/pi9_La_Cumpa.jpg",
+        "categoria": {
+            "nombre": "Pizzamia",
+            "id": "Pizzamia"
+        },
+        "precio": 36
+    },
+    {
+        "id": "13",
+        "titulo": "La Gringa",
+        "imagen": "/assets/images/img/Pizzamia/pi10_LaGringa.jpg",
+        "categoria": {
+            "nombre": "Pizzamia",
+            "id": "Pizzamia"
+        },
+        "precio": 35
+    },
+    {
+        "id": "14",
+        "titulo": "Mediterranea",
+        "imagen": "/assets/images/img/Pizzamia/pi11_Mediterranea.jpg",
+        "categoria": {
+            "nombre": "Pizzamia",
+            "id": "Pizzamia"
+        },
+        "precio": 36
+    },
+    {
+        "id": "15",
+        "titulo": "Mozzarella",
+        "imagen": "/assets/images/img/Pizzamia/pi12_Mozzarella.jpg",
+        "categoria": {
+            "nombre": "Pizzamia",
+            "id": "Pizzamia"
+        },
+        "precio": 36
+    },
+    {
+        "id": "16",
+        "titulo": "Parrillera",
+        "imagen": "/assets/images/img/Pizzamia/pi13_Parrillera.jpg",
+        "categoria": {
+            "nombre": "Pizzamia",
+            "id": "Pizzamia"
+        },
+        "precio": 31
+    },
+    {
+        "id": "17",
+        "titulo": "Pepperoni",
+        "imagen": "/assets/images/img/Pizzamia/pi14_Pepperoni.jpg",
+        "categoria": {
+            "nombre": "Pizzamia",
+            "id": "Pizzamia"
+        },
+        "precio": 37
+    },
+    {
+        "id": "18",
+        "titulo": "Pepperoni Supreme",
+        "imagen": "/assets/images/img/Pizzamia/pi15_PepperoniSupreme.jpg",
+        "categoria": {
+            "nombre": "Pizzamia",
+            "id": "Pizzamia"
+        },
+        "precio": 37
+    },
+    {
+        "id": "19",
+        "titulo": "Suprema",
+        "imagen": "/assets/images/img/Pizzamia/Suprema.jpg",
+        "categoria": {
+            "nombre": "Pizzamia",
+            "id": "Pizzamia"
+        },
+        "precio": 38
+    },
+    {
+        "id": "20",
+        "titulo": "Tropical",
+        "imagen": "/assets/images/img/Pizzamia/Tropical.jpg",
+        "categoria": {
+            "nombre": "Pizzamia",
+            "id": "Pizzamia"
+        },
+        "precio": 47
+    },
+    {
+        "id": "21",
+        "titulo": "Vegetariana",
+        "imagen": "/assets/images/img/Pizzamia/Vegetariana.jpg",
+        "categoria": {
+            "nombre": "Pizzamia",
+            "id": "Pizzamia"
+        },
+        "precio": 38
+    },
+
+    {
+        "id": "22",
+        "titulo": "Big Mac",
+        "imagen": "/assets/images/img/mcdonalds/1_BigMac.png",
+        "categoria": {
+            "nombre": "Macdonals",
+            "id": "Macdonals"
+        },
+        "precio": 24
+    },
+    {
+        "id": "23",
+        "titulo": "Doble Cuarto Libra con Queso",
+        "imagen": "/assets/images/img/mcdonalds/2_DobleCuartoLibraConQueso.png",
+        "categoria": {
+            "nombre": "Macdonals",
+            "id": "Macdonals"
+        },
+        "precio": 24
+    },
+    {
+        "id": "24",
+        "titulo": "Hamburguesa Clasica",
+        "imagen": "/assets/images/img/mcdonalds/3_Hamburguesa.png",
+        "categoria": {
+            "nombre": "Macdonals",
+            "id": "Macdonals"
+        },
+        "precio": 26
+    },
+    {
+        "id": "25",
+        "titulo": "Nuggets",
+        "imagen": "/assets/images/img/mcdonalds/4_McNuggets 10 unidades.png",
+        "categoria": {
+            "nombre": "Macdonals",
+            "id": "Macdonals"
+        },
+        "precio": 15
+    },
+    {
+        "id": "26",
+        "titulo": "Papas Grande",
+        "imagen": "/assets/images/img/mcdonalds/5_mcpapas-grande.png",
+        "categoria": {
+            "nombre": "Macdonals",
+            "id": "Macdonals"
+        },
+        "precio": 25
+    },
+    {
+        "id": "27",
+        "titulo": "Papas Kids",
+        "imagen": "/assets/images/img/mcdonalds/6_mcpapas-kidss.png",
+        "categoria": {
+            "nombre": "Macdonals",
+            "id": "Macdonals"
+        },
+        "precio": 16
+    },
+    {
+        "id": "28",
+        "titulo": "Papas Media",
+        "imagen": "/assets/images/img/mcdonalds/7_mcpapas-media.png",
+        "categoria": {
+            "nombre": "Macdonals",
+            "id": "Macdonals"
+        },
+        "precio": 25
+    },
+    {
+        "id": "32",
+        "titulo": "Sandwich Pollo con queso",
+        "imagen": "/assets/images/img/mcdonalds/11_Sándwich McPollo con queso.png",
+        "categoria": {
+            "nombre": "Macdonals",
+            "id": "Macdonals"
+        },
+        "precio": 26
+    },
+    {
+        "id": "30",
+        "titulo": "Pollo Crujiente 2 Piezas",
+        "imagen": "/assets/images/img/mcdonalds/9_Pollo Crujiente 2 Piezas.png",
+        "categoria": {
+            "nombre": "Macdonals",
+            "id": "Macdonals"
+        },
+        "precio": 24
+    },
+    {
+        "id": "31",
+        "titulo": "Pollo Crujiente 3 Piezas",
+        "imagen": "/assets/images/img/mcdonalds/10_Pollo Crujiente 3 Piezas.png",
+        "categoria": {
+            "nombre": "Macdonals",
+            "id": "Macdonals"
+        },
+        "precio": 30
+    },
+    {
+        "id": "33",
+        "titulo": "Sandwich triple",
+        "imagen": "/assets/images/img/mcdonalds/12_Sándwich Triple Hamburguesa.png",
+        "categoria": {
+            "nombre": "Macdonals",
+            "id": "Macdonals"
+        },
+        "precio": 27
+    },
+
+
+    {
+        "id": "34",
+        "titulo": "Hamburguesa con Filetes",
+        "imagen": "/assets/images/img/McBurger/1_MC-HAMBURGUESAS CON FILETE SABOR PICANA.jpg",
+        "categoria": {
+            "nombre": "McVurger",
+            "id": "McVurger"
+        },
+        "precio": 24
+    },
+    {
+        "id": "35",
+        "titulo": "Hamburguesa Tracicional",
+        "imagen": "/assets/images/img/McBurger/2_MC-HAMBURGUESAS TRADICIONAL.jpg",
+        "categoria": {
+            "nombre": "McVurger",
+            "id": "McVurger"
+        },
+        "precio": 25
+    },
+    {
+        "id": "36",
+        "titulo": "Hamburguesa Mixto",
+        "imagen": "/assets/images/img/McBurger/3_MC-MIXTO.png",
+        "categoria": {
+            "nombre": "McVurger",
+            "id": "McVurger"
+        },
+        "precio": 27
+    },
+    {
+        "id": "37",
+        "titulo": "Papas Plus",
+        "imagen": "/assets/images/img/McBurger/4_MC-PAPA PLUS.jpg",
+        "categoria": {
+            "nombre": "McVurger",
+            "id": "McVurger"
+        },
+        "precio": 16
+    },
+    {
+        "id": "38",
+        "titulo": "Papas",
+        "imagen": "/assets/images/img/McBurger/5_MC-PAPA.jpg",
+        "categoria": {
+            "nombre": "McVurger",
+            "id": "McVurger"
+        },
+        "precio": 14
+    },
+    {
+        "id": "39",
+        "titulo": "Hamburguesa a la Parrilla",
+        "imagen": "/assets/images/img/McBurger/6_MC-PARRILLA.jpg",
+        "categoria": {
+            "nombre": "McVurger",
+            "id": "McVurger"
+        },
+        "precio": 18
+    },
+    {
+        "id": "40",
+        "titulo": "Queso con Papa",
+        "imagen": "/assets/images/img/McBurger/7_MC-QUESO CON PAPA.jpg",
+        "categoria": {
+            "nombre": "McVurger",
+            "id": "McVurger"
+        },
+        "precio": 18
+    },
+    {
+        "id": "41",
+        "titulo": "Arroz Chaufa",
+        "imagen": "/assets/images/img/canserigenos al paso/1_arroz-chaufa.jpg",
+        "categoria": {
+            "nombre": "Canserijenos al paso",
+            "id": "Canserijenos al paso"
+        },
+        "precio": 25
+    },
+    {
+        "id": "42",
+        "titulo": "Combinado",
+        "imagen": "/assets/images/img/canserigenos al paso/2_combinado.jpg",
+        "categoria": {
+            "nombre": "Canserijenos al paso",
+            "id": "Canserijenos al paso"
+        },
+        "precio": 22
+    },
+    {
+        "id": "43",
+        "titulo": "Hamburguesa de Cecina",
+        "imagen": "/assets/images/img/canserigenos al paso/3_h_cecina.jpg",
+        "categoria": {
+            "nombre": "Canserijenos al paso",
+            "id": "Canserijenos al paso"
+        },
+        "precio": 25
+    },
+    {
+        "id": "44",
+        "titulo": "Hamburguesa de Chorizo con Queso",
+        "imagen": "/assets/images/img/canserigenos al paso/4_h_chorizoyqueso.jpg",
+        "categoria": {
+            "nombre": "Canserijenos al paso",
+            "id": "Canserijenos al paso"
+        },
+        "precio": 26
+    },
+    {
+        "id": "45",
+        "titulo": "Hamburguesa Clasica",
+        "imagen": "/assets/images/img/canserigenos al paso/5_h_clasica.jpeg",
+        "categoria": {
+            "nombre": "Canserijenos al paso",
+            "id": "Canserijenos al paso"
+        },
+        "precio": 27
+    },
+    {
+        "id": "46",
+        "titulo": "Hamburguesa Royal",
+        "imagen": "/assets/images/img/canserigenos al paso/6_h_royal.jpg",
+        "categoria": {
+            "nombre": "Canserijenos al paso",
+            "id": "Canserijenos al paso"
+        },
+        "precio": 26
+    },
+    
+    {
+        "id": "48",
+        "titulo": "Pollo Broster",
+        "imagen": "/assets/images/img/canserigenos al paso/8_pollobroster.jpg",
+        "categoria": {
+            "nombre": "Canserijenos al paso",
+            "id": "Canserijenos al paso"
+        },
+        "precio": 26
+    },
+    {
+        "id": "49",
+        "titulo": "Salchipapa",
+        "imagen": "/assets/images/img/canserigenos al paso/9_salchipapa.jpg",
+        "categoria": {
+            "nombre": "Canserijenos al paso",
+            "id": "Canserijenos al paso"
+        },
+        "precio": 28
+    },
+    {
+        "id": "47",
+        "titulo": "Juane Papa",
+        "imagen": "/assets/images/img/canserigenos al paso/7_juanepapa.png",
+        "categoria": {
+            "nombre": "Canserijenos al paso",
+            "id": "Canserijenos al paso"
+        },
+        "precio": 27
+    }
+]

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CarpiShop</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="./assets/css/main.css">
+    <style>
+      #botoninicio {
+        position: absolute;
+        top: 5rem;
+        left: 1.5rem;
+        z-index: 999;
+      }
+      #sucursales {
+        position: absolute;
+        top: 3rem;
+        left: 80rem;
+        z-index: 999;
+      }
+    </style>
+    <script type="text/javascript">
+      window.addEventListener("load", function() {
+        setTimeout(function() {
+          document.getElementById("ov-preloader").classList.add("fade-out");
+          document.getElementById("ov-preloader").style.pointerEvents = "none";
+        }, 500);
+      });
+    </script>
+</head>
+<body>
+  <div id="ov-preloader" class="ov-preloader" style="pointer-events: none;">
+    <div class="ov-icon"></div>
+  </div>
+   <div class="wrapper">
+    <header class="header-mobile">
+        <h1 class="logo">CarpiShop</h1>
+        <button class="open-menu" id="open-menu">
+            <i class="bi bi-list"></i>
+        </button>
+    </header>
+    <aside>
+        <button class="close-menu" id="close-menu">
+            <i class="bi bi-x"></i>
+        </button>
+        <header>
+            <h1 class="logo">CarpiShop</h1>
+            <button id="botoninicio" class="btn btn-secondary rounded-pill px-3" onclick="irASesion()">
+                <% if (usuarioEstaLogueado) { %> Cerrar sesión <% } else { %> Iniciar sesión <% } %>
+            </button>
+        </header>
+
+        <nav>
+            <ul class="menu">
+                <li>
+                    <button id="todos" class="boton-menu boton-categoria active"><i class="bi bi-hand-index-thumb-fill"></i> Todos los productos</button>
+                </li>
+
+                <ul>
+                    <% empresas.forEach(empresa => { %>
+                    <li>
+                        <button id="<%= empresa.nombres %>" class="boton-menu boton-categoria">
+                            <i class="bi bi-hand-index-thumb"></i> <%= empresa.nombres %>
+                        </button>
+                    </li>
+                    <% }); %>
+                </ul>
+
+                <li>
+                    <a class="boton-menu boton-carrito" href="/carrito">
+                        <i class="bi bi-cart-fill"></i> Carrito <span id="numerito" class="numerito">0</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <footer>
+            <p class="texto-footer">© 2023 TeamFive-FastFood</p>
+        </footer>
+    </aside>
+    <main>
+        <input type="hidden" value="<%= JSON.stringify(sucursales) %>" id="sucursales">
+        <div id="sucursales">
+            <select class="form-select" name="sucursales" id="select-sucursales">
+                <option>Sucursales .....</option>
+                
+            </select>
+        </div>
+
+        <h2 class="titulo-principal" id="titulo-principal">Todos los productos</h2>
+
+        <div id="contenedor-productos" class="contenedor-productos">
+            <!-- Esto se va a rellenar con JS -->
+        </div>
+    </main>
+</div>
+
+<script>
+    const botonInicio = document.querySelector("#botoninicio");
+    botonInicio.addEventListener("click", irASesion);
+
+    const selectSucursales = document.querySelector("#select-sucursales");
+    const botonEmpresas = document.querySelectorAll(".boton-menu.boton-categoria");
+
+    botonEmpresas.forEach(boton => {
+        boton.addEventListener("click", mostrarSucursales);
+    });
+
+    function mostrarSucursales(e) {
+        const empresaSeleccionada = e.target.id;
+        const sucursales = JSON.parse(document.querySelector("#sucursales").value);// Convertir el arreglo de sucursales a formato JSON
+        console.log(sucursales);
+        // Filtrar las sucursales de la empresa seleccionada
+        const sucursalesFiltradas = sucursales.filter(sucursal => sucursal.codempresa.nombres === empresaSeleccionada);
+
+        // Limpiar el desplegable de sucursales
+        selectSucursales.innerHTML = '<option selected>Sucursales .....</option>';
+
+        // Agregar las opciones al desplegable
+        sucursalesFiltradas.forEach(sucursal => {
+            const option = document.createElement("option");
+            option.value = sucursal.nombres;
+            option.innerText = sucursal.nombres;
+            selectSucursales.appendChild(option);
+        });
+    }
+
+    function irASesion() {
+        if (<%= usuarioEstaLogueado %>) {
+            window.location.href = "/logout";
+            console.log("si entro a CERRAR SESION");
+        } else {
+            window.location.href = "/login";
+            console.log("si entro a irASesion");
+        }
+    }
+</script>
+
+
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="./assets/js/main.js"></script>
+    <script src="./assets/js/menu.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+</body>
+</html>

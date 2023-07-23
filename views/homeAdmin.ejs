@@ -1,0 +1,158 @@
+<%- include('./includes/head.ejs')%>
+<%- include('./includes/menus.ejs')%>
+<div class="content">
+        <div class="bg-light p-2">
+          <div class="col-sm-12 py-5">
+            <h1 class="display-5 fw-normal text-center">HOME</h1>
+            <hr />
+            <input type="hidden" value="<%= sucursal %>" id="sucursal">
+            <div class="container overflow-hidden text-center">
+              <div class="row gy-5">
+                <div class="col-12 col-xl-6">
+                  <div class="container d-flex justify-content-center align-items-center flex-column">
+                    <div class="p-3">Reporte  de Ventas</div>
+                    <canvas id="myChart" style="max-width: 400px; height: 300px;"></canvas>
+                  </div>
+                </div>
+                <div class="col-12 col-xl-6">
+                  <div class="row gy-3">
+                    <div class="col-12 col-lg-6 ">
+                      <div class="container d-flex justify-content-center align-items-center flex-column">
+                        <div class="p-3">Reporte de Ventas por Categorias</div>
+                        <canvas id="myChart1"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6">
+                      <div class="container d-flex justify-content-center align-items-center flex-column">
+                        <div class="p-3">Reporte de Pagos</div>
+                        <canvas id="myChart2"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="container d-flex justify-content-center align-items-center flex-column">
+                        <div class="p-3">Reporte de Datos</div>
+                        <canvas id="myChart3"></canvas>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+            <!--  -->
+          </div>
+        </div>
+      </div>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      async function fetchData() {
+        let categorias = [];
+        let repeticionesCategorias = [];
+        let repeticiones = {};
+        const ventasPorFecha = {};
+        try {
+          const response = await axios.get("http://fast.spring.informaticapp.com:9060/admin/ventas");
+          const sucursal = document.getElementById("sucursal").value;
+          const ventas = response.data;
+          const responseDetalle= await axios.get("http://fast.spring.informaticapp.com:9060/admin/detalle_ventas");
+          const detalle_venta = responseDetalle.data;
+          const arrayVentasSucursal = [];
+          const detalleMenus = [];
+          for (let i = 0; i < ventas.length; i++) { 
+            if (ventas[i].nombreEmpresa === sucursal) {
+              arrayVentasSucursal.push(ventas[i]);
+              for (let j = 0; j < detalle_venta.length; j++) { 
+                if (detalle_venta[j].codventa.codventa === ventas[i].codventa) {
+                  detalleMenus.push(detalle_venta[j]);
+                }
+              }
+            }
+          }
+          detalleMenus.forEach((menus) => {
+            const estado = menus.codventa.estado;
+            if(estado === "2"){
+              const fechaVenta = menus.codventa.fechaHora.slice(0, 10);
+              const  nombre  = menus.codplatillo.nombres;
+              const  categoria  = menus.codplatillo.nombres;
+              const cantidad = menus.cantidad;
+              repeticiones[nombre] = repeticiones[nombre] ? repeticiones[nombre] + cantidad : cantidad;
+              if (!categorias.includes(categoria)) {
+                categorias.push(categoria);
+                repeticionesCategorias.push(1);
+              } else {
+                const index = categorias.indexOf(categoria);
+                repeticionesCategorias[index]++;
+              }
+              if (!ventasPorFecha[fechaVenta]) {
+                ventasPorFecha[fechaVenta] = 1;
+              } else {
+                ventasPorFecha[fechaVenta] += 1;
+              }
+            }
+          });
+          // Obtener el array de nombres únicos de productos
+          const nombresUnicos = Object.keys(repeticiones);
+          // Obtener el array de repeticiones correspondientes
+          const repeticionesArray = Object.values(repeticiones);
+          const fechas = Object.keys(ventasPorFecha);
+          const cantidadesVentas = Object.values(ventasPorFecha);
+          console.log(repeticiones);
+    
+          var myChart = new Chart(document.getElementById("myChart"), {
+            type: "doughnut",
+            data: {
+              labels: nombresUnicos,
+              datasets: [{
+                label: "Ventas",
+                data: repeticionesArray,
+                fill: false,
+                lineTension: 0.3
+              }]
+            },
+          
+          });
+    
+          var myChart1 = new Chart(document.getElementById("myChart1"), {
+            type: "bar",
+            data: {
+              labels:categorias,
+              datasets: [{
+                label: "Categorias",
+                data: repeticionesCategorias,
+                fill: false,
+                barPercentage: 0.6
+              }]
+            },
+          });
+          var myChart1 = new Chart(document.getElementById("myChart2"), {
+            type: "bar",
+            data: {
+              labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio"],
+              datasets: [{
+                label: "Pagos",
+                data: [10, 20, 30, 40, 50, 60],
+                fill: false,
+                barPercentage: 0.6
+              }]
+            },
+          });
+          var myChart1 = new Chart(document.getElementById("myChart3"), {
+            type: "line",
+            data: {
+              labels: fechas,
+              datasets: [{
+                label: "Ventas",
+                data: cantidadesVentas,
+                backgroundColor: "rgba(75, 192, 192, 0.2)",
+                borderColor: "rgba(75, 192, 192, 1)",
+                borderWidth: 1,
+                fill: false,
+                barPercentage: 0.6
+              }]
+            },
+          });
+        } catch(error){
+          console.log(error)
+        }
+      }
+      fetchData()
+    </script>
+  <%- include('./includes/foot.ejs')%>
