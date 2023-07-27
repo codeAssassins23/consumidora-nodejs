@@ -181,7 +181,7 @@ const postRecuperar = async (req, res) => {
     from: "teamfivefastfood@gmail.com",
     to: correo,
     subject: "Restablecimiento de contraseña",
-    html: `<p>Haga clic en el siguiente enlace para restablecer su contraseña: <a href="http://localhost:5000/newPassword/${correo}">Restablecer contraseña</a></p>`,
+    html: `<p>Haga clic en el siguiente enlace para restablecer su contraseña: <a href="https://superfast-teamfive.onrender.com/newPassword/${correo}">Restablecer contraseña</a></p>`,
   }
 
   try {
