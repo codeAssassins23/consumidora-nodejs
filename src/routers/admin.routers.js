@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const app = express();
-const passport = require("passport");
 const flash = require("express-flash");
 app.use(flash());
 const {
@@ -11,6 +10,7 @@ const {
   getReportes,
   getAdmin,
   getVentasDelivery,
+  detalleventasordenadas,
 
 }= require("../controllers/Users/user");
 
@@ -19,5 +19,9 @@ router.get("/reportes", checkNotAuthenticated, getReportes);
 router.get("/", checkNotAuthenticated, getAdmin);
 router.get("/user", checkNotAuthenticated, getAdminUser);
 router.get("/ventasWeb", checkNotAuthenticated, getVentasDelivery);
+
+//ventas en admin:
+router.get("/detalle", detalleventasordenadas);
+
 app.use("/", router);
 module.exports = app;

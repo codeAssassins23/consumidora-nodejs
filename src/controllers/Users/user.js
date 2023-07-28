@@ -96,7 +96,6 @@ const getAdminUser = async (req, res) => {
 };
 
 const getAdmin = (req, res) => {
-  console.log(req.isAuthenticated());
   const nombres = req.user.nombres;
   const sucursal = req.user.codsucursal.nombres;
   console.log(nombres);
@@ -159,6 +158,51 @@ const getVentasDelivery = async (req, res) => {
   res.render("ventasDelivery.ejs",{detalle_venta:arrayDetalleVentasSucursal, nombre: req.user.nombres,perfil:req.user.codperfil.nombres,sucursalUser:req.user.codsucursal.nombres,empresa:empresa,codusuario:req.user.codusuario });
 }
 
+//ventas administrador
+
+const ventasordenadas = async (req, res)=> {
+  try {
+    const response = await axios.get("http://fast.spring.informaticapp.com:9060/admin/ventas");
+    const ventas = response.data;
+    const arrayVentasSucursal = [];
+     for (let i = 0; i < ventas.length; i++) { 
+      if (ventas[i].nombreEmpresa === sucursal) {
+        arrayVentasSucursal.push(ventas[i]);
+      }
+    }
+    res.json(arrayVentasSucursal);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+const detalleventasordenadas = async (req, res) => {
+  try {
+    const sucursal = req.user.codsucursal.nombres;
+
+    const responsedetalle = await axios.get("http://fast.spring.informaticapp.com:9060/admin/detalle_ventas");
+    const responseventas = await axios.get("http://fast.spring.informaticapp.com:9060/admin/ventas");
+    const ventas = responseventas.data;
+    const detalle_venta = responsedetalle.data;
+    const arrayVentasSucursal = [];
+    const detalleMenus = [];
+    for (let i = 0; i < ventas.length; i++) { 
+      if (ventas[i].nombreEmpresa === sucursal) {
+        arrayVentasSucursal.push(ventas[i]);
+        for (let j = 0; j < detalle_venta.length; j++) { 
+          if (detalle_venta[j].codventa.codventa === ventas[i].codventa) {
+            detalleMenus.push(detalle_venta[j]);
+          }
+        }
+      }
+    }
+    console.log(detalleMenus);
+    
+    res.json(detalleMenus.rows);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Ha ocurrido un error en el servidor." });  }
+}
 /////fin de administrador
 
 const getRecuperar = (req, res) => {
@@ -470,6 +514,7 @@ const checkNotAuthenticated = function checkNotAuthenticated(req, res, next) {
 };
 
 module.exports = {
+  detalleventasordenadas,
   getCredenciales,
   getNewPassword,
   getEmailSend,getLogout,

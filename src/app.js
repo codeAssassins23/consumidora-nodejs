@@ -5,6 +5,7 @@ const session = require("express-session");
 const initializePassport = require("./controllers/passport/passportConfig");
 const passport = require("passport");
 const flash = require("express-flash");
+const cors = require("cors");
 
 //Configuracion de php
 // Use php-cgi to render PHP views
@@ -20,6 +21,13 @@ app.use(
     secret: "secret",
     resave: false,
     saveUninitialized: false,
+  })
+);
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    headers: ["Content-Type", "Authorization"],
   })
 );
 app.use(passport.initialize());

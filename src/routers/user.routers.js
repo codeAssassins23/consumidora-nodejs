@@ -40,7 +40,7 @@ router.post("/newPassword", checkAuthenticated, postNewPassword);
 router.post("/credenciales", checkAuthenticated, postCredenciales);
 router.get("/credenciales", checkAuthenticated, getCredenciales);
 
-
+ 
 //LOGIN Y LOGOUT
 router.get("/login",checkAuthenticated, getLogin);
 router.post(
