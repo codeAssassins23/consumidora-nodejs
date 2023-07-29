@@ -497,7 +497,6 @@ const checkNotAuthenticated = function checkNotAuthenticated(req, res, next) {
 
 module.exports = {
   detalleventasordenadas,
-  ventasordenadas,
   getCredenciales,
   getNewPassword,
   getEmailSend,getLogout,
