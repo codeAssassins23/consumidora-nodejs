@@ -49,23 +49,10 @@
         let repeticiones = {};
         const ventasPorFecha = {};
         try {
-          const response = await axios.get("http://fast.spring.informaticapp.com:9060/admin/ventas");
-          const sucursal = document.getElementById("sucursal").value;
-          const ventas = response.data;
-          const responseDetalle= await axios.get("http://fast.spring.informaticapp.com:9060/admin/detalle_ventas");
-          const detalle_venta = responseDetalle.data;
-          const arrayVentasSucursal = [];
-          const detalleMenus = [];
-          for (let i = 0; i < ventas.length; i++) { 
-            if (ventas[i].nombreEmpresa === sucursal) {
-              arrayVentasSucursal.push(ventas[i]);
-              for (let j = 0; j < detalle_venta.length; j++) { 
-                if (detalle_venta[j].codventa.codventa === ventas[i].codventa) {
-                  detalleMenus.push(detalle_venta[j]);
-                }
-              }
-            }
-          }
+          const responsePrueba = await axios.get("/admin/detalle");
+
+          const detalleMenus = responsePrueba.data;
+
           detalleMenus.forEach((menus) => {
             const estado = menus.codventa.estado;
             if(estado === "2"){
@@ -94,7 +81,6 @@
           const repeticionesArray = Object.values(repeticiones);
           const fechas = Object.keys(ventasPorFecha);
           const cantidadesVentas = Object.values(ventasPorFecha);
-          console.log(repeticiones);
     
           var myChart = new Chart(document.getElementById("myChart"), {
             type: "doughnut",

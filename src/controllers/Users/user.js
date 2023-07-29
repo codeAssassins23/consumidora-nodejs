@@ -159,27 +159,10 @@ const getVentasDelivery = async (req, res) => {
 }
 
 //ventas administrador
-
-const ventasordenadas = async (req, res)=> {
-  try {
-    const response = await axios.get("http://fast.spring.informaticapp.com:9060/admin/ventas");
-    const ventas = response.data;
-    const arrayVentasSucursal = [];
-     for (let i = 0; i < ventas.length; i++) { 
-      if (ventas[i].nombreEmpresa === sucursal) {
-        arrayVentasSucursal.push(ventas[i]);
-      }
-    }
-    res.json(arrayVentasSucursal);
-  } catch (error) {
-    console.log(error);
-  }
-}
-
 const detalleventasordenadas = async (req, res) => {
   try {
     const sucursal = req.user.codsucursal.nombres;
-
+    console.log(sucursal)
     const responsedetalle = await axios.get("http://fast.spring.informaticapp.com:9060/admin/detalle_ventas");
     const responseventas = await axios.get("http://fast.spring.informaticapp.com:9060/admin/ventas");
     const ventas = responseventas.data;
@@ -196,9 +179,8 @@ const detalleventasordenadas = async (req, res) => {
         }
       }
     }
-    console.log(detalleMenus);
     
-    res.json(detalleMenus.rows);
+    res.json(detalleMenus);
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Ha ocurrido un error en el servidor." });  }
@@ -515,6 +497,7 @@ const checkNotAuthenticated = function checkNotAuthenticated(req, res, next) {
 
 module.exports = {
   detalleventasordenadas,
+  ventasordenadas,
   getCredenciales,
   getNewPassword,
   getEmailSend,getLogout,

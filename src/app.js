@@ -5,11 +5,10 @@ const session = require("express-session");
 const initializePassport = require("./controllers/passport/passportConfig");
 const passport = require("passport");
 const flash = require("express-flash");
-const cors = require("cors");
-
+const cacheTime = 86400000; // 1 día en milisegundos
 //Configuracion de php
 // Use php-cgi to render PHP views
-app.use("/assets", express.static("public"));
+app.use("/assets", express.static("public",{ maxAge: cacheTime }));
 app.set("views", path.join(__dirname, "../views"));
 app.set("view engine", "ejs");
 
@@ -21,13 +20,6 @@ app.use(
     secret: "secret",
     resave: false,
     saveUninitialized: false,
-  })
-);
-app.use(
-  cors({
-    origin: "*",
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    headers: ["Content-Type", "Authorization"],
   })
 );
 app.use(passport.initialize());

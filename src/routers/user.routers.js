@@ -22,7 +22,7 @@ const {
   getRecuperar,
   getEmailSend,
   getNewPassword,
-  
+  ventasordenadas,
   checkAuthenticated,
   checkNotAuthenticated,
 } = require("../controllers/Users/user");
@@ -39,8 +39,8 @@ router.get("/newPassword/:correo", checkAuthenticated, getNewPassword);
 router.post("/newPassword", checkAuthenticated, postNewPassword);
 router.post("/credenciales", checkAuthenticated, postCredenciales);
 router.get("/credenciales", checkAuthenticated, getCredenciales);
+router.get("/detalle", ventasordenadas);
 
- 
 //LOGIN Y LOGOUT
 router.get("/login",checkAuthenticated, getLogin);
 router.post(
